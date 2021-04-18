@@ -23,4 +23,6 @@ public interface IUserProvider {
     boolean addToken(int userID);
 
     List<User> notConfirmedMail();
+
+    List<User> lessToken(String date);
 }

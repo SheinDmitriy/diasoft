@@ -8,7 +8,7 @@ import java.util.Date;
 @Component
 public class CurrDate {
     public String getDate() {
-        SimpleDateFormat formatter= new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        SimpleDateFormat formatter= new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         return formatter.format(date);
     }

@@ -87,14 +87,15 @@ public class UserService {
     }
 
     public List<User> audit(int audit) {
-        List<User> listUser = new ArrayList<>();
 
         switch (audit){
             case 1:
                 return userProvider.notConfirmedMail();
+            case 2:
+                return userProvider.lessToken(currDate.getDate());
         }
 
 
-        return listUser;
+        return null;
     }
 }
