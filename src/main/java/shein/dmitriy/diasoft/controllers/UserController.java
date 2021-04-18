@@ -26,4 +26,9 @@ public class UserController {
     public String checkMail(@RequestParam (value = "userID", required = true) int userID){
         return userService.checkMail(userID);
     }
+
+    @GetMapping(value = "loginpass")
+    public String logInPass(@RequestParam (value = "userID", required = true) int userID){
+        return userService.logInPass(userID);
+    }
 }

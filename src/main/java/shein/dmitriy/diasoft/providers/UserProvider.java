@@ -22,6 +22,8 @@ public class UserProvider implements IUserProvider {
 
     private static final String CHECK_MAIL = "SELECT tuser.* FROM tuser join taudit where tuser.UserID = taudit.UserID and taudit.ActionType = :u_actionType and tuser.UserID = :u_userid";
 
+    private static final String AUDIT_LOGIN = "insert into taudit(userid, actiontype) values(:u_userid, :u_actionType)";
+
     @Autowired
     public UserProvider(Sql2o sql2o) {
         this.sql2o = sql2o;
@@ -56,7 +58,6 @@ public class UserProvider implements IUserProvider {
                     .addParameter("u_pass", userDTO.getPass())
                     .addParameter("u_actionType", aType)
                     .executeUpdate();
-
         }
         return true;
     }
@@ -78,5 +79,15 @@ public class UserProvider implements IUserProvider {
                 return 2;
             }
         return 0;
+    }
+
+    @Override
+    public void auditLogInPass(int userID, short aType) {
+        try (Connection connection = sql2o.open()) {
+            connection.createQuery(AUDIT_LOGIN, true)
+                    .addParameter("u_userid", userID)
+                    .addParameter("u_actionType", aType)
+                    .executeUpdate();
+        }
     }
 }

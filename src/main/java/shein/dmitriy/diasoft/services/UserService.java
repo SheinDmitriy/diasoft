@@ -41,4 +41,10 @@ public class UserService {
         }
         return "Mail not confirmed";
     }
+
+    public String logInPass(int userID) {
+         userProvider.auditLogInPass(userID, (short) 3);
+        log.info("UserID: " + userID + " Log In - " + currDate.getDate());
+         return "User is Log In";
+    }
 }

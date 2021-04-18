@@ -8,4 +8,6 @@ public interface IUserProvider {
     boolean auditReg(UserDTO userDTO, short aType);
 
     int auditCheckMail(int userID, short aType);
+
+    void auditLogInPass(int userID, short aType);
 }
