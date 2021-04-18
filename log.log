@@ -313,3 +313,107 @@ org.sql2o.Sql2oException: Failed to add parameter with name 'u_userid'. No param
 2021-04-18 19:38:49.473  INFO 14224 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-04-18 19:38:49.474  INFO 14224 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-04-18 19:38:49.476  INFO 14224 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2021-04-18 20:01:10.233  INFO 3932 --- [main] s.dmitriy.diasoft.DiasoftApplication     : Starting DiasoftApplication using Java 1.8.0_241 on Dima with PID 3932 (D:\java\diasoft\target\classes started by dima in D:\java\diasoft)
+2021-04-18 20:01:10.237  INFO 3932 --- [main] s.dmitriy.diasoft.DiasoftApplication     : No active profile set, falling back to default profiles: default
+2021-04-18 20:01:11.342  INFO 3932 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-18 20:01:11.360  INFO 3932 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+2021-04-18 20:01:11.707  INFO 3932 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSourceProvider' of type [shein.dmitriy.diasoft.config.DataSourceProvider$$EnhancerBySpringCGLIB$$455e288b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:01:11.727  INFO 3932 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-18 20:01:11.919  INFO 3932 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-18 20:01:11.921  INFO 3932 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:01:11.939  INFO 3932 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration' of type [org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:01:11.941  INFO 3932 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'stringOrNumberMigrationVersionConverter' of type [org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration$StringOrNumberToMigrationVersionConverter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:01:11.949  INFO 3932 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:01:11.953  INFO 3932 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:01:12.200  INFO 3932 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-04-18 20:01:12.209  INFO 3932 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-18 20:01:12.209  INFO 3932 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-04-18 20:01:12.361  INFO 3932 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-18 20:01:12.361  INFO 3932 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2048 ms
+2021-04-18 20:01:12.524  INFO 3932 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 7.1.1 by Redgate
+2021-04-18 20:01:12.569  INFO 3932 --- [main] o.f.c.i.database.base.DatabaseType       : Database: jdbc:mysql://localhost:3306/diasoft (MySQL 8.0)
+2021-04-18 20:01:12.624  INFO 3932 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.032s)
+2021-04-18 20:01:12.639  INFO 3932 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `diasoft`: 2
+2021-04-18 20:01:12.640  INFO 3932 --- [main] o.f.core.internal.command.DbMigrate      : Schema `diasoft` is up to date. No migration necessary.
+2021-04-18 20:01:12.801  INFO 3932 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-18 20:01:12.847  INFO 3932 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2021-04-18 20:01:12.969  INFO 3932 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-04-18 20:01:13.082  INFO 3932 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-04-18 20:01:13.256  INFO 3932 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-18 20:01:13.269  INFO 3932 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-18 20:01:13.498  WARN 3932 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-18 20:01:13.757  INFO 3932 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-18 20:01:13.952  INFO 3932 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-04-18 20:01:14.254  INFO 3932 --- [main] s.dmitriy.diasoft.DiasoftApplication     : Started DiasoftApplication in 4.561 seconds (JVM running for 5.425)
+2021-04-18 20:02:04.127  INFO 9632 --- [main] s.dmitriy.diasoft.DiasoftApplication     : Starting DiasoftApplication using Java 1.8.0_241 on Dima with PID 9632 (D:\java\diasoft\target\classes started by dima in D:\java\diasoft)
+2021-04-18 20:02:04.134  INFO 9632 --- [main] s.dmitriy.diasoft.DiasoftApplication     : No active profile set, falling back to default profiles: default
+2021-04-18 20:02:05.343  INFO 9632 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-18 20:02:05.364  INFO 9632 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
+2021-04-18 20:02:05.799  INFO 9632 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSourceProvider' of type [shein.dmitriy.diasoft.config.DataSourceProvider$$EnhancerBySpringCGLIB$$df41fdbe] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:02:05.822  INFO 9632 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-18 20:02:06.057  INFO 9632 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-18 20:02:06.059  INFO 9632 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:02:06.078  INFO 9632 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration' of type [org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:02:06.080  INFO 9632 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'stringOrNumberMigrationVersionConverter' of type [org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration$StringOrNumberToMigrationVersionConverter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:02:06.091  INFO 9632 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:02:06.098  INFO 9632 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:02:06.368  INFO 9632 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-04-18 20:02:06.379  INFO 9632 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-18 20:02:06.379  INFO 9632 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-04-18 20:02:06.541  INFO 9632 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-18 20:02:06.542  INFO 9632 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2338 ms
+2021-04-18 20:02:06.688  INFO 9632 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 7.1.1 by Redgate
+2021-04-18 20:02:06.733  INFO 9632 --- [main] o.f.c.i.database.base.DatabaseType       : Database: jdbc:mysql://localhost:3306/diasoft (MySQL 8.0)
+2021-04-18 20:02:06.787  INFO 9632 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.032s)
+2021-04-18 20:02:06.802  INFO 9632 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `diasoft`: 2
+2021-04-18 20:02:06.803  INFO 9632 --- [main] o.f.core.internal.command.DbMigrate      : Schema `diasoft` is up to date. No migration necessary.
+2021-04-18 20:02:06.969  INFO 9632 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-18 20:02:07.016  INFO 9632 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2021-04-18 20:02:07.134  INFO 9632 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-04-18 20:02:07.246  INFO 9632 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-04-18 20:02:07.400  INFO 9632 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-18 20:02:07.412  INFO 9632 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-18 20:02:07.629  WARN 9632 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-18 20:02:07.887  INFO 9632 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-18 20:02:08.084  INFO 9632 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-04-18 20:02:08.370  INFO 9632 --- [main] s.dmitriy.diasoft.DiasoftApplication     : Started DiasoftApplication in 4.78 seconds (JVM running for 5.713)
+2021-04-18 20:44:25.292  INFO 13524 --- [main] s.dmitriy.diasoft.DiasoftApplication     : Starting DiasoftApplication using Java 1.8.0_241 on Dima with PID 13524 (D:\java\diasoft\target\classes started by dima in D:\java\diasoft)
+2021-04-18 20:44:25.296  INFO 13524 --- [main] s.dmitriy.diasoft.DiasoftApplication     : No active profile set, falling back to default profiles: default
+2021-04-18 20:44:26.408  INFO 13524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-18 20:44:26.426  INFO 13524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 JPA repository interfaces.
+2021-04-18 20:44:26.764  INFO 13524 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSourceProvider' of type [shein.dmitriy.diasoft.config.DataSourceProvider$$EnhancerBySpringCGLIB$$fb17ea5d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:44:26.785  INFO 13524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-18 20:44:26.986  INFO 13524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-18 20:44:26.988  INFO 13524 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:44:27.006  INFO 13524 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration' of type [org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:44:27.008  INFO 13524 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'stringOrNumberMigrationVersionConverter' of type [org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration$StringOrNumberToMigrationVersionConverter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:44:27.016  INFO 13524 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:44:27.020  INFO 13524 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-18 20:44:27.267  INFO 13524 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-04-18 20:44:27.277  INFO 13524 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-18 20:44:27.277  INFO 13524 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-04-18 20:44:27.429  INFO 13524 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-18 20:44:27.429  INFO 13524 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2076 ms
+2021-04-18 20:44:27.580  INFO 13524 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 7.1.1 by Redgate
+2021-04-18 20:44:27.626  INFO 13524 --- [main] o.f.c.i.database.base.DatabaseType       : Database: jdbc:mysql://localhost:3306/diasoft (MySQL 8.0)
+2021-04-18 20:44:27.682  INFO 13524 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.033s)
+2021-04-18 20:44:27.697  INFO 13524 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `diasoft`: 2
+2021-04-18 20:44:27.698  INFO 13524 --- [main] o.f.core.internal.command.DbMigrate      : Schema `diasoft` is up to date. No migration necessary.
+2021-04-18 20:44:27.862  INFO 13524 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-18 20:44:27.908  INFO 13524 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.30.Final
+2021-04-18 20:44:28.029  INFO 13524 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-04-18 20:44:28.139  INFO 13524 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-04-18 20:44:28.294  INFO 13524 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-18 20:44:28.305  INFO 13524 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-18 20:44:28.520  WARN 13524 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-18 20:44:28.786  INFO 13524 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-18 20:44:28.989  INFO 13524 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-04-18 20:44:29.289  INFO 13524 --- [main] s.dmitriy.diasoft.DiasoftApplication     : Started DiasoftApplication in 4.503 seconds (JVM running for 5.391)
+2021-04-18 20:44:41.183  INFO 13524 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-18 20:44:41.183  INFO 13524 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-18 20:44:41.187  INFO 13524 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2021-04-18 20:44:58.794  INFO 13524 --- [http-nio-8080-exec-7] s.dmitriy.diasoft.services.UserService   : UserID: 1 LogOut - 18.04.2021 20:44:58
+2021-04-18 20:45:06.641  INFO 13524 --- [http-nio-8080-exec-8] s.dmitriy.diasoft.services.UserService   : UserID: 1 already is LogOut - 18.04.2021 20:45:06
+2021-04-18 20:45:25.706  INFO 13524 --- [http-nio-8080-exec-9] s.dmitriy.diasoft.services.UserService   : UserID: 3 LogOut - 18.04.2021 20:45:25
+2021-04-18 20:45:34.108  INFO 13524 --- [http-nio-8080-exec-10] s.dmitriy.diasoft.services.UserService   : UserID: 3 Log In - 18.04.2021 20:45:34
+2021-04-18 20:45:38.489  INFO 13524 --- [http-nio-8080-exec-1] s.dmitriy.diasoft.services.UserService   : UserID: 3 already is LogOut - 18.04.2021 20:45:38

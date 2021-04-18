@@ -9,5 +9,7 @@ public interface IUserProvider {
 
     int auditCheckMail(int userID, short aType);
 
-    void auditLogInPass(int userID, short aType);
+    boolean auditLogInPass(int userID, short aType);
+
+    boolean auditLogOut(int userID, short aType);
 }

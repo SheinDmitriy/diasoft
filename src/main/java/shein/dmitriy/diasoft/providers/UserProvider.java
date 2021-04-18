@@ -18,11 +18,13 @@ public class UserProvider implements IUserProvider {
 
     private static final String AUDIT_REG = "insert into taudit(userid, actiontype) values((select userid from tuser where (name = :u_name and pass = :u_pass)), :u_actionType)";
 
-    private static final String AUDIT_CHECKMAIL = "insert into taudit(userid, actiontype) values(:u_userid, :u_actionType)";
+    private static final String ADD_LOG = "insert into taudit(userid, actiontype) values(:u_userid, :u_actionType)";
 
-    private static final String CHECK_MAIL = "SELECT tuser.* FROM tuser join taudit where tuser.UserID = taudit.UserID and taudit.ActionType = :u_actionType and tuser.UserID = :u_userid";
+    private static final String CHECK_IN_LOG = "SELECT tuser.* FROM tuser join taudit where tuser.UserID = taudit.UserID and taudit.ActionType = :u_actionType and tuser.UserID = :u_userid";
 
-    private static final String AUDIT_LOGIN = "insert into taudit(userid, actiontype) values(:u_userid, :u_actionType)";
+    private static final String CHECK_LOGOUT = "SELECT tuser.* FROM tuser join taudit where tuser.UserID = taudit.UserID and tuser.UserID = :u_userid and (SELECT MAX(taudit.actiontype) FROM taudit" +
+            " join tuser where tuser.UserID = taudit.UserID and taudit.ActionType = :u_actionType and tuser.UserID = :u_userid)>(SELECT MAX(taudit.actiontype) FROM taudit join tuser" +
+            " where tuser.UserID = taudit.UserID and taudit.ActionType = '3' and tuser.UserID = :u_userid)";
 
     @Autowired
     public UserProvider(Sql2o sql2o) {
@@ -66,13 +68,13 @@ public class UserProvider implements IUserProvider {
     public int auditCheckMail(int userID, short aType) {
 
         try (Connection connection = sql2o.open()) {
-            if(connection.createQuery(CHECK_MAIL, false)
+            if(connection.createQuery(CHECK_IN_LOG, false)
                     .addParameter("u_userid", userID)
                     .addParameter("u_actionType", aType)
                     .executeAndFetchFirst(User.class) != null){
                 return 1;
             }
-            if (connection.createQuery(AUDIT_CHECKMAIL, true)
+            if (connection.createQuery(ADD_LOG, true)
                         .addParameter("u_userid", userID)
                         .addParameter("u_actionType", aType)
                         .executeUpdate() != null)
@@ -82,12 +84,31 @@ public class UserProvider implements IUserProvider {
     }
 
     @Override
-    public void auditLogInPass(int userID, short aType) {
+    public boolean auditLogInPass(int userID, short aType) {
         try (Connection connection = sql2o.open()) {
-            connection.createQuery(AUDIT_LOGIN, true)
+            connection.createQuery(ADD_LOG, true)
                     .addParameter("u_userid", userID)
                     .addParameter("u_actionType", aType)
                     .executeUpdate();
+            return true;
+        }
+    }
+
+    @Override
+    public boolean auditLogOut(int userID, short aType) {
+        try (Connection connection = sql2o.open()) {
+            if (connection.createQuery(CHECK_LOGOUT, false)
+                    .addParameter("u_userid", userID)
+                    .addParameter("u_actionType", aType)
+                    .executeAndFetchFirst(User.class) != null) {
+                return false;
+            } else {
+                connection.createQuery(ADD_LOG, true)
+                        .addParameter("u_userid", userID)
+                        .addParameter("u_actionType", aType)
+                        .executeUpdate();
+                return true;
+            }
         }
     }
 }

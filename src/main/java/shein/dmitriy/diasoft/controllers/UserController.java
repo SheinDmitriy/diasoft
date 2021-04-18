@@ -31,4 +31,9 @@ public class UserController {
     public String logInPass(@RequestParam (value = "userID", required = true) int userID){
         return userService.logInPass(userID);
     }
+
+    @GetMapping(value = "logout")
+    public String logOut(@RequestParam (value = "userID", required = true) int userID){
+        return userService.logOut(userID);
+    }
 }

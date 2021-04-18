@@ -44,7 +44,18 @@ public class UserService {
 
     public String logInPass(int userID) {
          userProvider.auditLogInPass(userID, (short) 3);
-        log.info("UserID: " + userID + " Log In - " + currDate.getDate());
-         return "User is Log In";
+         log.info("UserID: " + userID + " Log In - " + currDate.getDate());
+         return "User is LogIn";
+    }
+
+    public String logOut(int userID) {
+        if(userProvider.auditLogOut(userID, (short) 4)){
+            log.info("UserID: " + userID + " LogOut - " + currDate.getDate());
+            return "User is LogOut";
+        } else {
+            log.info("UserID: " + userID + " already is LogOut - " + currDate.getDate());
+            return "User already is LogOut";
+        }
+
     }
 }
