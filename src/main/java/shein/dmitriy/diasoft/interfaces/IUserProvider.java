@@ -27,4 +27,6 @@ public interface IUserProvider {
     List<User> lessToken(String date);
 
     List<User> noLogIn();
+
+    List<User> failLogin();
 }

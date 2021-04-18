@@ -41,6 +41,9 @@ public class UserProvider implements IUserProvider {
     private static final String NO_LOGIN = "select * from tuser where userid not in (select tuser.userid from taudit join tuser " +
             "where ActionType = '3' and tuser.userid = taudit.userid)";
 
+    private static final String FAIL_LOGIN = "select tuser.* from tuser join taudit where taudit.actiontype = '5' and tuser.userid = taudit.userid group by tuser.userid " +
+            "order by count(taudit.actiontype) desc limit 4";
+
     @Autowired
     public UserProvider(Sql2o sql2o) {
         this.sql2o = sql2o;
@@ -181,6 +184,15 @@ public class UserProvider implements IUserProvider {
     public List<User> noLogIn() {
         try (Connection connection = sql2o.open()) {
             return connection.createQuery(NO_LOGIN, true)
+                    .setColumnMappings(User.COLUMN_MAPPINGS)
+                    .executeAndFetch(User.class);
+        }
+    }
+
+    @Override
+    public List<User> failLogin() {
+        try (Connection connection = sql2o.open()) {
+            return connection.createQuery(FAIL_LOGIN, true)
                     .setColumnMappings(User.COLUMN_MAPPINGS)
                     .executeAndFetch(User.class);
         }

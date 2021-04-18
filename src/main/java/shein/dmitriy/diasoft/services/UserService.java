@@ -95,6 +95,8 @@ public class UserService {
                 return userProvider.lessToken(currDate.getDate());
             case 3:
                 return userProvider.noLogIn();
+            case 4:
+                return userProvider.failLogin();
         }
 
 
