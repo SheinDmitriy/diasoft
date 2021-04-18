@@ -19,14 +19,26 @@ public class UserService {
         this.currDate = currDate;
     }
 
-    public boolean addUser(UserDTO userDTO) {
+    public String addUser(UserDTO userDTO) {
         if (userProvider.addUser(userDTO)){
-            userProvider.auditReg(userDTO);
+            userProvider.auditReg(userDTO, (short) 1);
             log.info("User: " + userDTO.getName() + " registered successfully. - " + currDate.getDate());
-            return true;
+            return "User registered successfully";
         } else {
             log.info("User: " + userDTO.getName() + " not registered. - " + currDate.getDate());
-            return false;
+            return "User not registered";
         }
+    }
+
+    public String checkMail(int userID) {
+        switch (userProvider.auditCheckMail(userID, (short) 2)){
+            case 1:
+                log.info("UserID: " + userID + " Mail already confirmed. - " + currDate.getDate());
+                return "Mail already confirmed";
+            case 2:
+                log.info("UserID: " + userID + " Mail confirmed. - " + currDate.getDate());
+                return "Mail confirmed";
+        }
+        return "Mail not confirmed";
     }
 }
