@@ -12,7 +12,9 @@ import shein.dmitriy.diasoft.interfaces.IUserProvider;
 public class UserProvider implements IUserProvider {
     private final Sql2o sql2o;
 
-    private static final String CHECK_USER = "select name, pass from tuser where name = :u_name and pass = :u_pass";
+    private static final String FIND_USER = "select tuser.* from tuser where userid = :u_userid";
+
+    private static final String CHECK_USER = "select tuser.* from tuser where name = :u_name and pass = :u_pass";
 
     private static final String INSERT_USER = "insert into tuser(name, pass, mail) values(:u_name, :u_pass, :u_mail)";
 
@@ -29,6 +31,16 @@ public class UserProvider implements IUserProvider {
     @Autowired
     public UserProvider(Sql2o sql2o) {
         this.sql2o = sql2o;
+    }
+
+    @Override
+    public boolean findUser(int userID) {
+        try (Connection connection = sql2o.open()) {
+            return connection.createQuery(FIND_USER, false)
+                    .addParameter("u_userid", userID)
+                    .setColumnMappings(User.COLUMN_MAPPINGS)
+                    .executeAndFetchFirst(User.class) != null;
+        }
     }
 
     @Override

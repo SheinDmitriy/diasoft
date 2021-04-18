@@ -31,37 +31,53 @@ public class UserService {
     }
 
     public String checkMail(int userID) {
-        switch (userProvider.auditCheckMail(userID, (short) 2)){
-            case 1:
-                log.info("UserID: " + userID + " Mail already confirmed. - " + currDate.getDate());
-                return "Mail already confirmed";
-            case 2:
-                log.info("UserID: " + userID + " Mail confirmed. - " + currDate.getDate());
-                return "Mail confirmed";
+        if (userProvider.findUser(userID)) {
+            switch (userProvider.auditCheckMail(userID, (short) 2)) {
+                case 1:
+                    log.info("UserID: " + userID + " Mail already confirmed. - " + currDate.getDate());
+                    return "Mail already confirmed";
+                case 2:
+                    log.info("UserID: " + userID + " Mail confirmed. - " + currDate.getDate());
+                    return "Mail confirmed";
+            }
+            return "Mail not confirmed";
+        } else {
+            return "User not found";
         }
-        return "Mail not confirmed";
     }
 
     public String logInPass(int userID) {
-         userProvider.auditLogInPass(userID, (short) 3);
-         log.info("UserID: " + userID + " Log In - " + currDate.getDate());
-         return "User is LogIn";
+        if (userProvider.findUser(userID)) {
+            userProvider.auditLogInPass(userID, (short) 3);
+            log.info("UserID: " + userID + " Log In - " + currDate.getDate());
+            return "User is LogIn";
+        } else {
+            return "User not found";
+        }
     }
 
     public String logOut(int userID) {
-        if(userProvider.auditLogOut(userID, (short) 4)){
-            log.info("UserID: " + userID + " LogOut - " + currDate.getDate());
-            return "User is LogOut";
+        if (userProvider.findUser(userID)) {
+            if (userProvider.auditLogOut(userID, (short) 4)) {
+                log.info("UserID: " + userID + " LogOut - " + currDate.getDate());
+                return "User is LogOut";
+            } else {
+                log.info("UserID: " + userID + " already is LogOut - " + currDate.getDate());
+                return "User already is LogOut";
+            }
         } else {
-            log.info("UserID: " + userID + " already is LogOut - " + currDate.getDate());
-            return "User already is LogOut";
+            return "User not found";
         }
 
     }
 
     public String logInFail(int userID) {
-        userProvider.auditLogInFail(userID, (short) 5);
-        log.info("UserID: " + userID + " LogIn Fail- " + currDate.getDate());
-        return "LogIn Fail";
+        if (userProvider.findUser(userID)){
+            userProvider.auditLogInFail(userID, (short) 5);
+            log.info("UserID: " + userID + " LogIn Fail- " + currDate.getDate());
+            return "LogIn Fail";
+        } else {
+            return "User not found";
+        }
     }
 }
