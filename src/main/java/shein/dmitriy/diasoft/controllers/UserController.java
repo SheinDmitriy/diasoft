@@ -4,7 +4,10 @@ package shein.dmitriy.diasoft.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import shein.dmitriy.diasoft.dto.UserDTO;
+import shein.dmitriy.diasoft.entitys.User;
 import shein.dmitriy.diasoft.services.UserService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/")
@@ -40,5 +43,10 @@ public class UserController {
     @GetMapping(value = "loginfail")
     public String logInFail(@RequestParam (value = "userID", required = true) int userID){
         return userService.logInFail(userID);
+    }
+
+    @GetMapping(value = "audit")
+    public List<User> audit(@RequestParam (value = "audit", required = true) int audit){
+        return userService.audit(audit);
     }
 }

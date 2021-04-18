@@ -8,6 +8,8 @@ import shein.dmitriy.diasoft.dto.UserDTO;
 import shein.dmitriy.diasoft.entitys.User;
 import shein.dmitriy.diasoft.interfaces.IUserProvider;
 
+import java.util.List;
+
 @Component
 public class UserProvider implements IUserProvider {
     private final Sql2o sql2o;
@@ -30,6 +32,9 @@ public class UserProvider implements IUserProvider {
 
     private static final String ADD_TOKEN = "insert into taccesstoken(auditid, userid, expiredate) values((SELECT taudit.auditid FROM taudit where userid = :u_userid and " +
             "ActionDate = (select max(taudit.ActionDate) from taudit where userid = :u_userid and ActionType = '3')), :u_userid, ( adddate((select max(taudit.ActionDate) from taudit where userid = :u_userid and ActionType = '3'), interval +3 minute) ))";
+
+    private static final String NOT_CONFIRMED_MAIL = "select * from tuser where userid not in (select tuser.userid from taudit join tuser " +
+            "where ActionType = '2' and tuser.userid = taudit.userid)";
 
     @Autowired
     public UserProvider(Sql2o sql2o) {
@@ -145,6 +150,15 @@ public class UserProvider implements IUserProvider {
                     .addParameter("u_userid", userID)
                     .executeUpdate();
             return true;
+        }
+    }
+
+    @Override
+    public List<User> notConfirmedMail() {
+        try (Connection connection = sql2o.open()) {
+            return connection.createQuery(NOT_CONFIRMED_MAIL, true)
+                    .setColumnMappings(User.COLUMN_MAPPINGS)
+                    .executeAndFetch(User.class);
         }
     }
 }

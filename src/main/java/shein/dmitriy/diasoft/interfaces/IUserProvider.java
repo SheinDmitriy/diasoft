@@ -1,6 +1,9 @@
 package shein.dmitriy.diasoft.interfaces;
 
 import shein.dmitriy.diasoft.dto.UserDTO;
+import shein.dmitriy.diasoft.entitys.User;
+
+import java.util.List;
 
 public interface IUserProvider {
     boolean findUser(int userID);
@@ -18,4 +21,6 @@ public interface IUserProvider {
     boolean auditLogInFail(int userID, short aType);
 
     boolean addToken(int userID);
+
+    List<User> notConfirmedMail();
 }

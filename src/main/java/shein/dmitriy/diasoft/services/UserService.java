@@ -4,8 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import shein.dmitriy.diasoft.dto.UserDTO;
+import shein.dmitriy.diasoft.entitys.User;
 import shein.dmitriy.diasoft.interfaces.IUserProvider;
 import shein.dmitriy.diasoft.utilits.CurrDate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -80,5 +84,17 @@ public class UserService {
         } else {
             return "User not found";
         }
+    }
+
+    public List<User> audit(int audit) {
+        List<User> listUser = new ArrayList<>();
+
+        switch (audit){
+            case 1:
+                return userProvider.notConfirmedMail();
+        }
+
+
+        return listUser;
     }
 }
