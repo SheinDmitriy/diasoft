@@ -36,4 +36,9 @@ public class UserController {
     public String logOut(@RequestParam (value = "userID", required = true) int userID){
         return userService.logOut(userID);
     }
+
+    @GetMapping(value = "loginfail")
+    public String logInFail(@RequestParam (value = "userID", required = true) int userID){
+        return userService.logInFail(userID);
+    }
 }

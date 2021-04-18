@@ -111,4 +111,15 @@ public class UserProvider implements IUserProvider {
             }
         }
     }
+
+    @Override
+    public boolean auditLogInFail(int userID, short aType) {
+        try (Connection connection = sql2o.open()) {
+            connection.createQuery(ADD_LOG, true)
+                    .addParameter("u_userid", userID)
+                    .addParameter("u_actionType", aType)
+                    .executeUpdate();
+            return true;
+        }
+    }
 }

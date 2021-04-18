@@ -58,4 +58,10 @@ public class UserService {
         }
 
     }
+
+    public String logInFail(int userID) {
+        userProvider.auditLogInFail(userID, (short) 5);
+        log.info("UserID: " + userID + " LogIn Fail- " + currDate.getDate());
+        return "LogIn Fail";
+    }
 }

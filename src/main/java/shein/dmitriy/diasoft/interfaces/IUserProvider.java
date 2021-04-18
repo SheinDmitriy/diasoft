@@ -12,4 +12,6 @@ public interface IUserProvider {
     boolean auditLogInPass(int userID, short aType);
 
     boolean auditLogOut(int userID, short aType);
+
+    boolean auditLogInFail(int userID, short aType);
 }
