@@ -93,6 +93,8 @@ public class UserService {
                 return userProvider.notConfirmedMail();
             case 2:
                 return userProvider.lessToken(currDate.getDate());
+            case 3:
+                return userProvider.noLogIn();
         }
 
 

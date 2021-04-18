@@ -8,8 +8,6 @@ import shein.dmitriy.diasoft.dto.UserDTO;
 import shein.dmitriy.diasoft.entitys.User;
 import shein.dmitriy.diasoft.interfaces.IUserProvider;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -39,6 +37,9 @@ public class UserProvider implements IUserProvider {
             "where ActionType = '2' and tuser.userid = taudit.userid)";
 
     private static final String LESS_TOKEN = "SELECT tuser.* FROM tuser join taccesstoken where taccesstoken.expiredate < :u_date and tuser.userid = taccesstoken.userid group by tuser.userid";
+
+    private static final String NO_LOGIN = "select * from tuser where userid not in (select tuser.userid from taudit join tuser " +
+            "where ActionType = '3' and tuser.userid = taudit.userid)";
 
     @Autowired
     public UserProvider(Sql2o sql2o) {
@@ -171,6 +172,15 @@ public class UserProvider implements IUserProvider {
         try (Connection connection = sql2o.open()) {
             return connection.createQuery(LESS_TOKEN, true)
                     .addParameter("u_date", date)
+                    .setColumnMappings(User.COLUMN_MAPPINGS)
+                    .executeAndFetch(User.class);
+        }
+    }
+
+    @Override
+    public List<User> noLogIn() {
+        try (Connection connection = sql2o.open()) {
+            return connection.createQuery(NO_LOGIN, true)
                     .setColumnMappings(User.COLUMN_MAPPINGS)
                     .executeAndFetch(User.class);
         }

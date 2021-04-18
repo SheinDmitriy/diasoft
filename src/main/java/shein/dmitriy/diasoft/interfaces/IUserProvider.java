@@ -25,4 +25,6 @@ public interface IUserProvider {
     List<User> notConfirmedMail();
 
     List<User> lessToken(String date);
+
+    List<User> noLogIn();
 }
