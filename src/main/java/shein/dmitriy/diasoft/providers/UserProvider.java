@@ -28,6 +28,9 @@ public class UserProvider implements IUserProvider {
             " join tuser where tuser.UserID = taudit.UserID and taudit.ActionType = :u_actionType and tuser.UserID = :u_userid)>(SELECT MAX(taudit.actiontype) FROM taudit join tuser" +
             " where tuser.UserID = taudit.UserID and taudit.ActionType = '3' and tuser.UserID = :u_userid)";
 
+    private static final String ADD_TOKEN = "insert into taccesstoken(auditid, userid, expiredate) values((SELECT taudit.auditid FROM taudit where userid = :u_userid and " +
+            "ActionDate = (select max(taudit.ActionDate) from taudit where userid = :u_userid and ActionType = '3')), :u_userid, ( adddate((select max(taudit.ActionDate) from taudit where userid = :u_userid and ActionType = '3'), interval +3 minute) ))";
+
     @Autowired
     public UserProvider(Sql2o sql2o) {
         this.sql2o = sql2o;
@@ -101,9 +104,9 @@ public class UserProvider implements IUserProvider {
             connection.createQuery(ADD_LOG, true)
                     .addParameter("u_userid", userID)
                     .addParameter("u_actionType", aType)
-                    .executeUpdate();
+                    .executeUpdate();}
             return true;
-        }
+
     }
 
     @Override
@@ -130,6 +133,16 @@ public class UserProvider implements IUserProvider {
             connection.createQuery(ADD_LOG, true)
                     .addParameter("u_userid", userID)
                     .addParameter("u_actionType", aType)
+                    .executeUpdate();
+            return true;
+        }
+    }
+
+    @Override
+    public boolean addToken(int userID) {
+        try (Connection connection = sql2o.open()) {
+            connection.createQuery(ADD_TOKEN, true)
+                    .addParameter("u_userid", userID)
                     .executeUpdate();
             return true;
         }

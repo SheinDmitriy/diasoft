@@ -16,4 +16,6 @@ public interface IUserProvider {
     boolean auditLogOut(int userID, short aType);
 
     boolean auditLogInFail(int userID, short aType);
+
+    boolean addToken(int userID);
 }

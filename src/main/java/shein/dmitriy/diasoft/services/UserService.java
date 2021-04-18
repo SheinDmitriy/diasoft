@@ -49,6 +49,7 @@ public class UserService {
     public String logInPass(int userID) {
         if (userProvider.findUser(userID)) {
             userProvider.auditLogInPass(userID, (short) 3);
+            userProvider.addToken(userID);
             log.info("UserID: " + userID + " Log In - " + currDate.getDate());
             return "User is LogIn";
         } else {
