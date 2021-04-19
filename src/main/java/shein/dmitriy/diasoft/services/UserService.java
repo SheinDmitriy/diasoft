@@ -90,16 +90,18 @@ public class UserService {
 
         switch (audit){
             case 1:
+                log.info("Отчет по форме №1 создан - " + currDate.getDate());
                 return userProvider.notConfirmedMail();
             case 2:
+                log.info("Отчет по форме №2 создан - " + currDate.getDate());
                 return userProvider.lessToken(currDate.getDate());
             case 3:
+                log.info("Отчет по форме №3 создан - " + currDate.getDate());
                 return userProvider.noLogIn();
             case 4:
+                log.info("Отчет по форме №4 создан - " + currDate.getDate());
                 return userProvider.failLogin();
         }
-
-
         return null;
     }
 }

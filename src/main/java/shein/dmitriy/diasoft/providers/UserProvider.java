@@ -1,6 +1,7 @@
 package shein.dmitriy.diasoft.providers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -13,6 +14,9 @@ import java.util.List;
 @Component
 public class UserProvider implements IUserProvider {
     private final Sql2o sql2o;
+
+    @Value("${tokenTimeLimit}")
+    private int tokenTimeLimit;
 
     private static final String FIND_USER = "select tuser.* from tuser where userid = :u_userid";
 
@@ -31,7 +35,7 @@ public class UserProvider implements IUserProvider {
             " where tuser.UserID = taudit.UserID and taudit.ActionType = '3' and tuser.UserID = :u_userid)";
 
     private static final String ADD_TOKEN = "insert into taccesstoken(auditid, userid, expiredate) values((SELECT taudit.auditid FROM taudit where userid = :u_userid and " +
-            "ActionDate = (select max(taudit.ActionDate) from taudit where userid = :u_userid and ActionType = '3')), :u_userid, ( adddate((select max(taudit.ActionDate) from taudit where userid = :u_userid and ActionType = '3'), interval +3 minute) ))";
+            "ActionDate = (select max(taudit.ActionDate) from taudit where userid = :u_userid and ActionType = '3')), :u_userid, ( adddate((select max(taudit.ActionDate) from taudit where userid = :u_userid and ActionType = '3'), interval +:u_tokenTimeLimit minute) ))";
 
     private static final String NOT_CONFIRMED_MAIL = "select * from tuser where userid not in (select tuser.userid from taudit join tuser " +
             "where ActionType = '2' and tuser.userid = taudit.userid)";
@@ -175,6 +179,7 @@ public class UserProvider implements IUserProvider {
         try (Connection connection = sql2o.open()) {
             return connection.createQuery(LESS_TOKEN, true)
                     .addParameter("u_date", date)
+                    .addParameter("u_tokenTimeLimit", tokenTimeLimit)
                     .setColumnMappings(User.COLUMN_MAPPINGS)
                     .executeAndFetch(User.class);
         }
