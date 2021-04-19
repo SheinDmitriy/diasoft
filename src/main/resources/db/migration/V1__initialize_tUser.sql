@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS tUser;
+
+CREATE TABLE tUser (
+  UserID  int NOT NULL AUTO_INCREMENT,
+  Name    VARCHAR(50) NOT NULL,
+  Pass    VARCHAR(50) NOT NULL,
+  Mail    VARCHAR(255),
+   PRIMARY KEY (UserID)
+) ENGINE=InnoDB;
+
+
+
+
+
