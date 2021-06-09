@@ -10,13 +10,19 @@ public interface IUserProvider {
 
     boolean addUser(UserDTO userDTO);
 
+    boolean checkUser(UserDTO userDTO);
+
     boolean auditReg(UserDTO userDTO, short aType);
 
-    int auditCheckMail(int userID, short aType);
+    boolean auditCheckMailInLog(int userID, short aType);
+
+    boolean auditAddMailLog(int userID, short aType);
 
     boolean auditLogInPass(int userID, short aType);
 
-    boolean auditLogOut(int userID, short aType);
+    boolean auditLogOutCheck(int userID, short aType);
+
+    boolean auditAddLogOutLog(int userID, short aType);
 
     boolean auditLogInFail(int userID, short aType);
 

@@ -40,7 +40,8 @@ public class UserProvider implements IUserProvider {
     private static final String NOT_CONFIRMED_MAIL = "select * from tuser where userid not in (select tuser.userid from taudit join tuser " +
             "where ActionType = '2' and tuser.userid = taudit.userid)";
 
-    private static final String LESS_TOKEN = "SELECT tuser.* FROM tuser join taccesstoken where taccesstoken.expiredate < :u_date and tuser.userid = taccesstoken.userid group by tuser.userid";
+    private static final String LESS_TOKEN = "SELECT tuser.* FROM tuser join taccesstoken as tat on tuser.UserID = tat.UserID where ExpireDate = (select max(taccesstoken.ExpireDate) from taccesstoken where UserID = tat.UserID) and ExpireDate < :u_date";
+
 
     private static final String NO_LOGIN = "select * from tuser where userid not in (select tuser.userid from taudit join tuser " +
             "where ActionType = '3' and tuser.userid = taudit.userid)";
@@ -64,23 +65,29 @@ public class UserProvider implements IUserProvider {
     }
 
     @Override
-    public boolean addUser(UserDTO userDTO) {
+    public boolean checkUser(UserDTO userDTO){
         try (Connection connection = sql2o.open()) {
             if(connection.createQuery(CHECK_USER, false)
                     .addParameter("u_name", userDTO.getName())
                     .addParameter("u_pass", userDTO.getPass())
                     .setColumnMappings(User.COLUMN_MAPPINGS)
                     .executeAndFetchFirst(User.class) != null){
-                return false;
-            }else {
-                connection.createQuery(INSERT_USER, true)
-                        .addParameter("u_name", userDTO.getName())
-                        .addParameter("u_pass", userDTO.getPass())
-                        .addParameter("u_mail", userDTO.getMail())
-                        .setColumnMappings(User.COLUMN_MAPPINGS)
-                        .executeUpdate();
                 return true;
             }
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addUser(UserDTO userDTO) {
+        try (Connection connection = sql2o.open()) {
+            connection.createQuery(INSERT_USER, true)
+                    .addParameter("u_name", userDTO.getName())
+                    .addParameter("u_pass", userDTO.getPass())
+                    .addParameter("u_mail", userDTO.getMail())
+                    .setColumnMappings(User.COLUMN_MAPPINGS)
+                    .executeUpdate();
+            return true;
         }
     }
 
@@ -97,22 +104,27 @@ public class UserProvider implements IUserProvider {
     }
 
     @Override
-    public int auditCheckMail(int userID, short aType) {
-
+    public boolean auditCheckMailInLog(int userID, short aType){
         try (Connection connection = sql2o.open()) {
             if(connection.createQuery(CHECK_IN_LOG, false)
                     .addParameter("u_userid", userID)
                     .addParameter("u_actionType", aType)
-                    .executeAndFetchFirst(User.class) != null){
-                return 1;
-            }
+                    .executeAndFetchFirst(User.class) != null)
+                return true;
+            return false;
+        }
+    }
+
+    @Override
+    public boolean auditAddMailLog(int userID, short aType) {
+        try (Connection connection = sql2o.open()) {
             if (connection.createQuery(ADD_LOG, true)
                         .addParameter("u_userid", userID)
                         .addParameter("u_actionType", aType)
                         .executeUpdate() != null)
-                return 2;
+                return true;
             }
-        return 0;
+        return false;
     }
 
     @Override
@@ -127,20 +139,26 @@ public class UserProvider implements IUserProvider {
     }
 
     @Override
-    public boolean auditLogOut(int userID, short aType) {
+    public boolean auditLogOutCheck(int userID, short aType) {
         try (Connection connection = sql2o.open()) {
             if (connection.createQuery(CHECK_LOGOUT, false)
                     .addParameter("u_userid", userID)
                     .addParameter("u_actionType", aType)
-                    .executeAndFetchFirst(User.class) != null) {
-                return false;
-            } else {
-                connection.createQuery(ADD_LOG, true)
+                    .executeAndFetchFirst(User.class) != null)
+                return true;
+            return false;
+        }
+    }
+
+    @Override
+    public boolean auditAddLogOutLog(int userID, short aType) {
+        try (Connection connection = sql2o.open()) {
+            if (connection.createQuery(ADD_LOG, true)
                         .addParameter("u_userid", userID)
                         .addParameter("u_actionType", aType)
-                        .executeUpdate();
+                        .executeUpdate() != null)
                 return true;
-            }
+            return false;
         }
     }
 
@@ -160,6 +178,7 @@ public class UserProvider implements IUserProvider {
         try (Connection connection = sql2o.open()) {
             connection.createQuery(ADD_TOKEN, true)
                     .addParameter("u_userid", userID)
+                    .addParameter("u_tokenTimeLimit", tokenTimeLimit)
                     .executeUpdate();
             return true;
         }
@@ -179,7 +198,6 @@ public class UserProvider implements IUserProvider {
         try (Connection connection = sql2o.open()) {
             return connection.createQuery(LESS_TOKEN, true)
                     .addParameter("u_date", date)
-                    .addParameter("u_tokenTimeLimit", tokenTimeLimit)
                     .setColumnMappings(User.COLUMN_MAPPINGS)
                     .executeAndFetch(User.class);
         }
