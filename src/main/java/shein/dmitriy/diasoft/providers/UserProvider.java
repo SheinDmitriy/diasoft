@@ -65,23 +65,29 @@ public class UserProvider implements IUserProvider {
     }
 
     @Override
-    public boolean addUser(UserDTO userDTO) {
+    public boolean checkUser(UserDTO userDTO){
         try (Connection connection = sql2o.open()) {
             if(connection.createQuery(CHECK_USER, false)
                     .addParameter("u_name", userDTO.getName())
                     .addParameter("u_pass", userDTO.getPass())
                     .setColumnMappings(User.COLUMN_MAPPINGS)
                     .executeAndFetchFirst(User.class) != null){
-                return false;
-            }else {
-                connection.createQuery(INSERT_USER, true)
-                        .addParameter("u_name", userDTO.getName())
-                        .addParameter("u_pass", userDTO.getPass())
-                        .addParameter("u_mail", userDTO.getMail())
-                        .setColumnMappings(User.COLUMN_MAPPINGS)
-                        .executeUpdate();
                 return true;
             }
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addUser(UserDTO userDTO) {
+        try (Connection connection = sql2o.open()) {
+            connection.createQuery(INSERT_USER, true)
+                    .addParameter("u_name", userDTO.getName())
+                    .addParameter("u_pass", userDTO.getPass())
+                    .addParameter("u_mail", userDTO.getMail())
+                    .setColumnMappings(User.COLUMN_MAPPINGS)
+                    .executeUpdate();
+            return true;
         }
     }
 
@@ -98,22 +104,27 @@ public class UserProvider implements IUserProvider {
     }
 
     @Override
-    public int auditCheckMail(int userID, short aType) {
-
+    public boolean auditCheckMailInLog(int userID, short aType){
         try (Connection connection = sql2o.open()) {
             if(connection.createQuery(CHECK_IN_LOG, false)
                     .addParameter("u_userid", userID)
                     .addParameter("u_actionType", aType)
-                    .executeAndFetchFirst(User.class) != null){
-                return 1;
-            }
+                    .executeAndFetchFirst(User.class) != null)
+                return true;
+            return false;
+        }
+    }
+
+    @Override
+    public boolean auditAddMailLog(int userID, short aType) {
+        try (Connection connection = sql2o.open()) {
             if (connection.createQuery(ADD_LOG, true)
                         .addParameter("u_userid", userID)
                         .addParameter("u_actionType", aType)
                         .executeUpdate() != null)
-                return 2;
+                return true;
             }
-        return 0;
+        return false;
     }
 
     @Override
@@ -128,20 +139,26 @@ public class UserProvider implements IUserProvider {
     }
 
     @Override
-    public boolean auditLogOut(int userID, short aType) {
+    public boolean auditLogOutCheck(int userID, short aType) {
         try (Connection connection = sql2o.open()) {
             if (connection.createQuery(CHECK_LOGOUT, false)
                     .addParameter("u_userid", userID)
                     .addParameter("u_actionType", aType)
-                    .executeAndFetchFirst(User.class) != null) {
-                return false;
-            } else {
-                connection.createQuery(ADD_LOG, true)
+                    .executeAndFetchFirst(User.class) != null)
+                return true;
+            return false;
+        }
+    }
+
+    @Override
+    public boolean auditAddLogOutLog(int userID, short aType) {
+        try (Connection connection = sql2o.open()) {
+            if (connection.createQuery(ADD_LOG, true)
                         .addParameter("u_userid", userID)
                         .addParameter("u_actionType", aType)
-                        .executeUpdate();
+                        .executeUpdate() != null)
                 return true;
-            }
+            return false;
         }
     }
 
