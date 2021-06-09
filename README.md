@@ -1,6 +1,6 @@
 **Задание:**
-
-create table tUser (
+create table tUser
+             (
              UserID int IDENTITY,
              Name   varchar(50),
              Pass   varchar(50),
@@ -24,46 +24,29 @@ create table tAccessToken
              )
 
 Пример данных.
-
 tUser
-
 UserID  Name  Pass Mail
-
 1       Petr   123 Petr@dot.com
-
 2       Basyl  ABC XXX@YYY.com
-
 3       Root   @#$ admin@factory.com
 
 
 tAudit
-
 AuditID   UserID  ActionType  ActionDate
-
 1         1       1           01.11.2020 12:32:45.099
-
 2         1       2           01.11.2020 12:35:50.439
-
 3         2       1           14.02.2021 23:45:03.519
-
 4         3       1           01.01.2010 14:07:10.131
-
 5         3       2           01.01.2010 14:07:13.152
-
 6         3       3           01.01.2010 14:05:15.167
-
 7         3       4           01.01.2010 23:07:10.298
-
 8         1       5           01.01.2020 12:36:15.479
-
 9         1       3           01.01.2020 12:37:01.618
 
+
 tAccessToken
-
 TokenID   AuditID  UserID ExpireDate
-
 1         6        3      01.01.2010 23:59:59.999
-
 2         9        1      01.01.2020 12:52:00.000
 
 Задания на SQL.
