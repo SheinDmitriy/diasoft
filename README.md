@@ -1,6 +1,6 @@
 **Задание:**
 create table tUser
-             (
+            (
              UserID int IDENTITY,
              Name   varchar(50),
              Pass   varchar(50),
